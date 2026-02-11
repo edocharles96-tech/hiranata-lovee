@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Hiranata ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fff0f5,#ffd6e8,#fff);
+}
+
+/* SECTION */
+.section{
+  width:100%;
+  height:100vh;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  padding:25px;
+}
+.active{display:flex;}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,.92);
+  padding:25px;
+  border-radius:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,.15);
+  max-width:380px;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:12px;
+  padding:11px 22px;
+  border:none;
+  border-radius:25px;
+  background:#ff4d88;
+  color:white;
+  cursor:pointer;
+  font-size:14px;
+  transition:.3s;
+}
+.btn:hover{transform:scale(1.08);}
+
+/* HEART FLOAT */
+.heart{
+  position:absolute;
+  color:#ff4d88;
+  opacity:.4;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-10vh)}
+}
+
+/* MUSIC BTN */
+#mute{
+  position:fixed;
+  top:15px;
+  right:15px;
+  background:#ff4d88;
+  color:white;
+  border:none;
+  border-radius:20px;
+  padding:6px 10px;
+}
+
+/* SLIDER */
+.slider{
+  position:relative;
+  width:260px;
+  height:340px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  margin-top:15px;
+}
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:.8s;
+}
+.slide.active{opacity:1;}
+
+.dots{margin-top:10px;}
+.dot{
+  height:8px;width:8px;
+  background:#ffc1d6;
+  border-radius:50%;
+  display:inline-block;
+  margin:3px;
+}
+.dot.active{
+  background:#ff4d88;
+  transform:scale(1.4);
+}
+
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:pink;
+  top:-10px;
+  animation:fall 2s linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- FLOAT HEARTS -->
+<script>
+for(let i=0;i<25;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*18+12)+"px";
+  h.style.animationDuration=(Math.random()*5+4)+"s";
+  document.body.appendChild(h);
+}
+</script>
+
+<!-- MUSIC -->
+<audio id="bgm" loop>
+  <source src="Mesra.mp3" type="audio/mpeg">
+</audio>
+<button id="mute" onclick="toggleMusic()">🔊</button>
+
+
+<!-- 1 OPENING -->
+<div class="section active" id="p1">
+  <div class="card">
+    <h2 id="typing"></h2>
+    <button class="btn" onclick="startMusic(); next(2)">Open My Heart ❤️</button>
+  </div>
+</div>
+
+
+<!-- 2 GALLERY -->
+<div class="section" id="p2">
+  <div class="card">
+    <h3>Our Memories ✨</h3>
+
+    <div class="slider" id="slider">
+      <img class="slide active" src="foto1.jpg">
+      <img class="slide" src="foto2.jpg">
+      <img class="slide" src="foto3.jpg">
+      <img class="slide" src="foto4.jpg">
+      <img class="slide" src="foto5.jpg">
+      <img class="slide" src="foto6.jpg">
+    </div>
+
+    <div class="dots" id="dots"></div>
+    <button class="btn" onclick="next(3)">Next</button>
+  </div>
+</div>
+
+
+<!-- 3 DATE -->
+<div class="section" id="p3">
+  <div class="card">
+    <h3>Kapan kita date lagi? ❤️</h3>
+    <input type="date"><br>
+    <button class="btn" onclick="next(4)">Next</button>
+  </div>
+</div>
+
+
+<!-- 4 GIFT QUESTION -->
+<div class="section" id="p4">
+  <div class="card">
+    <h3>Kalau aku kasih hadiah... kamu mau apa? 🎁</h3>
+
+    <button class="btn" onclick="chooseGift('Staycation 🏨')">Staycation</button>
+    <button class="btn" onclick="chooseGift('Nonton romantis 🎬')">Nonton romantis</button>
+    <button class="btn" onclick="chooseGift('Dinner romantis 🍷')">Dinner romantis</button>
+    <button class="btn" onclick="chooseGift('Yang penting sama kamu ❤️')">Bareng kamu aja</button>
+
+    <p id="giftResult" style="margin-top:10px;font-size:13px;"></p>
+  </div>
+</div>
+
+
+<!-- 5 LETTER -->
+<div class="section" id="p5">
+  <div class="card">
+    <h3>For Hiranata ❤️</h3>
+    <p id="letter"></p>
+    <button class="btn" onclick="next(6)">Continue</button>
+  </div>
+</div>
+
+
+<!-- 6 FINAL -->
+<div class="section" id="p6">
+  <div class="card">
+    <h3>Will you stay with me forever? ❤️</h3>
+    <button class="btn" onclick="celebrate()">YES 💘</button>
+    <button class="btn" id="noBtn">NO 😆</button>
+  </div>
+</div>
+
+
+<script>
+/* PAGE */
+function next(n){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById("p"+n).classList.add("active");
+}
+
+/* TYPING OPEN */
+let text="Hi Hiranata ❤️ aku bikin sesuatu spesial buat kamu...";
+let i=0;
+(function type(){
+ if(i<text.length){
+  typing.innerHTML+=text[i++];
+  setTimeout(type,40);
+ }
+})();
+
+/* LETTER */
+let msg="Terima kasih sudah hadir di hidup aku. Semua momen kecil sama kamu itu berharga banget. Aku mau terus sama kamu, selamanya ❤️";
+let j=0;
+document.getElementById("p5").onclick=function(){
+ if(j<msg.length){
+   letter.innerHTML+=msg[j++];
+   setTimeout(arguments.callee,30);
+ }
+};
+
+/* MUSIC */
+let music=document.getElementById("bgm");
+function startMusic(){
+ music.volume=0;
+ music.play();
+ let v=0;
+ let fade=setInterval(()=>{
+   v+=0.03;
+   music.volume=v;
+   if(v>=0.4)clearInterval(fade);
+ },100);
+}
+function toggleMusic(){ music.muted=!music.muted; }
+
+/* SLIDER */
+let slides=document.querySelectorAll(".slide");
+let dotsContainer=document.getElementById("dots");
+let index=0;
+
+slides.forEach((_,i)=>{
+ let d=document.createElement("span");
+ d.className="dot";
+ if(i==0)d.classList.add("active");
+ dotsContainer.appendChild(d);
+});
+let dots=document.querySelectorAll(".dot");
+
+function show(i){
+ slides[index].classList.remove("active");
+ dots[index].classList.remove("active");
+ index=i;
+ slides[index].classList.add("active");
+ dots[index].classList.add("active");
+}
+setInterval(()=>show((index+1)%slides.length),2500);
+
+/* 🎁 GIFT + CONFETTI + AUTO NEXT */
+function chooseGift(txt){
+ giftResult.innerHTML="Hehe noted 😘 pilih: <b>"+txt+"</b>";
+
+ for(let i=0;i<80;i++){
+   let c=document.createElement("div");
+   c.className="confetti";
+   c.style.left=Math.random()*100+"vw";
+   document.body.appendChild(c);
+ }
+
+ setTimeout(()=>next(5),1200);
+}
+
+/* NO BUTTON RUN */
+let no=document.getElementById("noBtn");
+no.onmouseover=()=>{
+ no.style.position="absolute";
+ no.style.left=Math.random()*70+"%";
+ no.style.top=Math.random()*70+"%";
+}
+
+/* FINAL */
+function celebrate(){
+ alert("Yay! ❤️");
+}
+</script>
+
+</body>
+</html>
